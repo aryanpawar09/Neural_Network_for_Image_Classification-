@@ -1,11 +1,10 @@
 import streamlit as st
 import numpy as np
 import tensorflow as tf
-import matplotlib.pyplot as plt
 from PIL import Image
 
 # Load trained model
-MODEL_PATH = "fashion_mnist_model (2).keras"  # Ensure this file exists
+MODEL_PATH = "fashion_mnist_model.keras"  # Ensure the correct file exists
 try:
     model = tf.keras.models.load_model(MODEL_PATH)
 except Exception as e:
@@ -29,10 +28,15 @@ if uploaded_file:
         image = image.resize((28, 28))  # Resize to match model input
 
         # Convert to NumPy array
-        image_array = np.array(image, dtype=np.float32) / 255.0  # Normalize to [0,1]
+        image_array = np.array(image, dtype=np.float32)
 
-        # Display the uploaded image
-        st.image(image_array, caption="Uploaded Image", width=150, clamp=True, channels="gray")
+        # Ensure correct preprocessing
+        if image_array.max() > 1:  # If values are in [0, 255], normalize to [0,1]
+            image_array /= 255.0  
+
+        # Debugging: Check image array properties
+        st.write(f"Image Shape Before Reshape: {image_array.shape}")
+        st.write(f"Pixel Value Range: Min {image_array.min()}, Max {image_array.max()}")
 
         # Reshape for model (batch size, height, width, channels)
         image_array = image_array.reshape(1, 28, 28, 1)
@@ -40,14 +44,14 @@ if uploaded_file:
         # Predict class
         prediction = model.predict(image_array)
 
-        # Debugging: Show raw probabilities
-        st.write("🔍 Raw Predictions:", prediction)
-
         # Find predicted class
         predicted_class = np.argmax(prediction)
 
         # Display result
         st.write(f"### 🎯 Prediction: {class_names[predicted_class]}")
+
+        # Debugging: Show raw probabilities
+        st.write("🔍 Raw Predictions:", prediction)
     
     except Exception as e:
         st.error(f"Error processing image: {e}")
