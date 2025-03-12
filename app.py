@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from PIL import Image
 
 # Load trained model
-MODEL_PATH = "fashion_mnist_model_fixed.keras"  # Ensure this file exists
+MODEL_PATH = "fashion_mnist_model (2).keras"  # Ensure this file exists
 try:
     model = tf.keras.models.load_model(MODEL_PATH)
 except Exception as e:
