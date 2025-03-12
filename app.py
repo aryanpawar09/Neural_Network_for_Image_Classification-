@@ -4,7 +4,7 @@ import tensorflow as tf
 from PIL import Image
 
 # Load trained model
-MODEL_PATH = "fashion_mnist_model.keras"  # Ensure the correct file exists
+MODEL_PATH = "fashion_mnist_model (2).keras"  # Ensure the correct file exists
 try:
     model = tf.keras.models.load_model(MODEL_PATH)
 except Exception as e:
