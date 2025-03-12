@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from PIL import Image
 
 # Load trained model
-model = tf.keras.models.load_model("fashion_mnist_model.h5")
+model = tf.keras.models.load_model("fashion_mnist_model.keras")
 
 # Class names
 class_names = ["T-shirt/top", "Trouser", "Pullover", "Dress", "Coat",
