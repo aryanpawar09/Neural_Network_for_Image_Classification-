@@ -33,6 +33,10 @@ if uploaded_file:
 
     # Predict class
     prediction = model.predict(image)
+
+    # Debugging: Print the prediction probabilities
+    st.write("Raw Predictions:", prediction)
+
     predicted_class = np.argmax(prediction)
 
     # Display result
